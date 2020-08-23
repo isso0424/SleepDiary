@@ -7,7 +7,10 @@ class SleepTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "${timeToSleep.inHours}h ${timeToSleep.inMinutes}min"
+      "${timeToSleep.inHours}h ${timeToSleep.inMinutes % 60}min",
+      style: TextStyle(
+        fontSize: 15
+      ),
     );
   }
 }
@@ -20,7 +23,10 @@ class SleepDuration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-        "${startTime.hour}:${startTime.minute} ~ ${finishTime.hour}:${finishTime.minute}"
+        "${startTime.hour}:${startTime.minute} ~ ${finishTime.hour}:${finishTime.minute}",
+        style: TextStyle(
+        fontSize: 15
+    ),
     );
   }
 }

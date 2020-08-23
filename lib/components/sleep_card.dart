@@ -13,30 +13,37 @@ class SleepCard extends StatefulWidget {
 class _SleepCardState extends State<SleepCard> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: [
-          Text("${widget.sleepInfo.date.hour}/${widget.sleepInfo.date.day}"),
-          Divider(
-            color: Colors.grey,
-          ),
-          Text("Sleep duration"),
-          Divider(
-            color: Colors.grey,
-          ),
-          Row(
+    return Padding(
+        padding: EdgeInsets.all(5),
+        child: Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SleepTime(
-                timeToSleep: widget.sleepInfo.getTimeToSleep(),
+              Text(
+                "${widget.sleepInfo.date.month}/${widget.sleepInfo.date.day}",
+                style: TextStyle(fontSize: 40),
               ),
-              SleepDuration(
-                startTime: widget.sleepInfo.startSleeping,
-                finishTime: widget.sleepInfo.finishSleeping,
+              Divider(
+                color: Colors.grey,
+              ),
+
+              Padding(
+                padding: EdgeInsets.all(3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SleepTime(
+                    timeToSleep: widget.sleepInfo.getTimeToSleep(),
+                  ),
+                  SleepDuration(
+                    startTime: widget.sleepInfo.startSleeping,
+                    finishTime: widget.sleepInfo.finishSleeping,
+                  )
+                ],
+              ),
               )
             ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
