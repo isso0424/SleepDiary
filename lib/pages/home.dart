@@ -5,17 +5,13 @@ import 'package:sleep_diary/type.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  HomePage({Key key, this.title}): super(key: key);
+  final Data data;
+  HomePage({Key key, this.title, this.data}): super(key: key);
 
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  Data data;
-  _HomePageState() {
-    this.data = Data();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: FutureBuilder(
-        future: data.loadAllDates(),
+        future: widget.data.loadAllDates(),
         builder: (BuildContext context, AsyncSnapshot<List<SleepInfo>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -36,9 +32,18 @@ class _HomePageState extends State<HomePage> {
               },
             );
           }
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
 
           return CircularProgressIndicator();
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/add").then((value) => setState((){}));
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

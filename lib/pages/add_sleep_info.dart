@@ -62,7 +62,9 @@ class _State extends State<CreateNewSleepInfoPage> {
           ),
           RaisedButton(
             child: Text("Create!!!"),
-            onPressed: () {
+            onPressed: () async {
+              print(_startSleepingTime);
+              print(_finishSleepingTime);
               if (_startSleepingTime == null || _finishSleepingTime == null) {
                 return;
               }
@@ -70,7 +72,8 @@ class _State extends State<CreateNewSleepInfoPage> {
               SleepInfo sleepInfo =
                   SleepInfo(_startSleepingTime, _finishSleepingTime);
 
-              widget.data.saveNewData(sleepInfo);
+              await widget.data.saveNewData(sleepInfo);
+              Navigator.pop(context);
             },
           )
         ],

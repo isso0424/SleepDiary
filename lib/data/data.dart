@@ -12,15 +12,20 @@ class Data {
       return [];
     }
 
-    List<SleepInfo> sleepDates = json.decode(dates);
-    return sleepDates;
+    List<SleepInfo> sleepInfoList = [];
+    json.decode(dates).forEach((data) {
+          sleepInfoList.add(SleepInfo.fromJson(data));
+        }
+    );
+
+    return sleepInfoList;
   }
 
   Future saveNewData(SleepInfo newData) async {
     List<SleepInfo> beforeData = await loadAllDates();
     beforeData.add(newData);
 
-    String jsonData = json.encode(newData.toJson());
+    String jsonData = json.encode(beforeData);
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("data", jsonData);

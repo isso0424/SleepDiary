@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sleep_diary/data/data.dart';
+import 'package:sleep_diary/pages/add_sleep_info.dart';
 
 import 'pages/home.dart';
 
@@ -7,6 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final Data _data = Data();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,11 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomePage(title: 'SleepDiary'),
+      initialRoute: "/",
+      routes: <String, WidgetBuilder>{
+        "/": (_) => HomePage(title: 'SleepDiary', data: _data,),
+        "/add": (_) => CreateNewSleepInfoPage(data: _data,),
+      }
     );
   }
 }
