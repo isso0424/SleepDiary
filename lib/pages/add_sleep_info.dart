@@ -22,14 +22,17 @@ class _State extends State<CreateNewSleepInfoPage> {
         title: Text("Add new data"),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Create new sleep info"),
-          Text("StartTime"),
+          Text("Create new sleep info", style: TextStyle(fontSize: 40),),
+          Divider(color: Colors.grey,),
+          Row(children: [
+          Text("StartTime: ${_startSleepingTime == null ? "Not entered" : _startSleepingTime}", style: TextStyle(fontSize: 20)),
           RaisedButton(
             child: Text("Set"),
             onPressed: () => {
               DatePicker.showTimePicker(context, currentTime: DateTime.now(),
-                  onChanged: (data) {
+                  onConfirm: (data) {
                 DateTime nowDate =
                     DateTime.now().subtract(new Duration(days: 1));
                 _startSleepingTime = DateTime(
@@ -39,15 +42,19 @@ class _State extends State<CreateNewSleepInfoPage> {
                   data.hour,
                   data.minute,
                 );
+                setState(() {
+                });
               })
             },
           ),
-          Text("FinishTime"),
+          ]),
+      Row(children: [
+          Text("FinishTime: ${_finishSleepingTime == null ? "Not entered" : _finishSleepingTime}", style: TextStyle(fontSize: 20)),
           RaisedButton(
             child: Text("Set"),
             onPressed: () => {
               DatePicker.showTimePicker(context, currentTime: DateTime.now(),
-                  onChanged: (data) {
+                  onConfirm: (data) {
                 DateTime nowDate =
                     DateTime.now().subtract(new Duration(days: 1));
                 _finishSleepingTime = DateTime(
@@ -57,14 +64,15 @@ class _State extends State<CreateNewSleepInfoPage> {
                   data.hour,
                   data.minute,
                 );
+                setState(() {
+                });
               })
             },
           ),
+          ]),
           RaisedButton(
             child: Text("Create!!!"),
             onPressed: () async {
-              print(_startSleepingTime);
-              print(_finishSleepingTime);
               if (_startSleepingTime == null || _finishSleepingTime == null) {
                 return;
               }
